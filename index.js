@@ -10,6 +10,8 @@ async function main() {
   
 }
 
+renderMovies ()
+
 main();
 
 function movieHTML(movie) {

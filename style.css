@@ -195,3 +195,16 @@ Browse Nav
   color: #6030b1;
   font-size: 32px;
 }
+
+/*
+
+Browse Landing
+
+*/
+
+.movie__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px;
+}
