@@ -1,17 +1,23 @@
 // API 1: "http://www.omdbapi.com/?apikey=3a666101&s=fast"
 
 const movieListEl = document.querySelector(".movie-list");
+let moviesData;
 
 async function main() {
   const movies = await fetch("http://www.omdbapi.com/?apikey=3a666101&s=fast");
-  const moviesData = await movies.json();
+  moviesData = await movies.json();
 
   movieListEl.innerHTML = moviesData.Search.map((movie) =>
     movieHTML(movie)
-  ).join("");
+  );
 }
+
 const filter = document.getElementById("filter");
-const resultsContainer = document.getElementById("results");
+filter.addEventListener("input", () => {
+  const filteredData = moviesData.Search.filter((movie) => movie.Title.toLowerCase().includes(filter.value.toLowerCase()));
+  
+  movieListEl.innerHTML = filteredData.map((movie) => movieHTML(movie));
+});
 
 
 main();
@@ -32,23 +38,3 @@ function movieHTML(movie) {
   </div>
 </div>`;
 }
-
-function filterResults(query) {
-  resultsContainer.innerHTML = "";
-
-  const filteredData = moviesData.filter((item) =>
-    item.toLowerCase().includes(query.toLowerCase())
-  );
-
-  filteredData.forEach((item) => {
-    const div = document.createElement("div");
-    div.className = "result-item";
-    div.textContent = item;
-    resultsContainer.appendChild(div);
-  });
-}
-
-filter.addEventListener("input", () => {
-  const query = filter.value;
-  filterResults(query);
-});
